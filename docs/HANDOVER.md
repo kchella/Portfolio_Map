@@ -19,7 +19,7 @@ For whoever works on **par-map** next, person or agent. Read this first. Last up
 | Supabase project | ref `hwxinyzdssdrtmhdclor`. This is not the SupaTicket project. |
 | Stack | Next.js 15 (Pages Router), React 19, TypeScript strict, Supabase (`@supabase/supabase-js` 2.x, `@supabase/ssr`), Leaflet + React-Leaflet, Mapbox tiles, Tailwind |
 | Env vars (names only) | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_MAPBOX_TOKEN`, `ADMIN_PASSWORD` (unused, see 3.3) |
-| Existing docs | `README.md`, `CLAUDE.md`, `RULES.md`, `ARCHITECTURE.md`, `DESIGN.md`, `CHECKLIST.md`, `scripts/README.md`. They contradict each other; see 3.4. |
+| Docs (restructured 2026-10-07) | Root: `README.md`, `AGENTS.md` (the rulebook), `CLAUDE.md` (imports AGENTS.md), `CONTRIBUTING.md`. `docs/`: see the index in `AGENTS.md`, "Where things are". `RULES.md`, `CHECKLIST.md` and `scripts/README.md` were retired; their content is in `AGENTS.md` and `docs/HISTORY.md`. Section 3.4 below records the contradictions as found on 2026-10-04. |
 
 ---
 
@@ -81,7 +81,7 @@ Nothing below has been started. Steps 1–3 wait on Chella's go-ahead.
 2. **Fix `.gitignore` before any commit:** exclude `.env*`, `scripts/*.csv` and `scripts/customers_output.ts`, and untrack the two customer files (`git rm --cached`).
 3. **Sync the local work:** copy the local `par-map` over the clone's `par-map`, leaving out `node_modules`, `.next` and `.env.local`. Commit on `chore/sync-local-work` and open a PR. **Confirm in review** that deleting `src/pages/api/` and `next.config.js` was intended.
 4. **After the merge,** work from the clone, and copy `.env.local` across as a file (never paste keys into chat).
-5. **Docs restructure (second PR, no code changes),** to the same layout as SupaTicket:
+5. **Docs restructure** (done 2026-10-07, see `docs/AUDIT_LOG.md`; not yet committed), to the same layout as SupaTicket:
    - `AGENTS.md`: the single rulebook. Merge `RULES.md` and `CLAUDE.md`; lock the stack; add the eight working practices and the one-audit-file rule. `CLAUDE.md` only points to `AGENTS.md`.
    - `README.md`: lean, correct, no emojis.
    - `CONTRIBUTING.md`: branches, commits, reviews.

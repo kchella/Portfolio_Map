@@ -1,5 +1,5 @@
 // ─── src/styles/theme.ts ─────────────────────────────────────────────────────
-// Design tokens for the map UI — see DESIGN.md ("The Luminous Curator"),
+// Design tokens for the map UI — see docs/DESIGN.md,
 // with the SupaMoto orange as the accent.
 
 export const T = {

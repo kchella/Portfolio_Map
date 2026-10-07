@@ -41,3 +41,7 @@ next-env.d.ts
 scripts/*.csv
 scripts/*.xlsx
 scripts/customers_output.ts
+
+# Claude Code: local skills link and personal settings
+.claude/skills
+.claude/settings.local.json

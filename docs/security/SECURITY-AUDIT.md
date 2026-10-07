@@ -11,6 +11,30 @@ The living security register for **par-map**. Add new findings here and update e
 
 ---
 
+## How this file is maintained
+
+- **One file.** This is the single living security register (`AGENTS.md`,
+  security non-negotiables). Never start a second audit file.
+- **On every audit:** add a row to *Audit history*. Add new findings with an
+  ID (C/H/M/L/N + number), severity, file:line or system, the exploit, and
+  the proposed fix. Re-check every open finding and update its status in
+  place. Add the fixes as a phase in section 4.
+- **On every fix:** tick the item in section 4 and update the finding's
+  heading in the same change, with the migration or file, the date and how
+  it was verified (anon-key re-test, `pg_policies` output). Written but not
+  deployed stays unticked with a note.
+- **Deploy steps** for security fixes are in `SECURITY-DEPLOY-RUNBOOK.md`;
+  each deploy is also logged in `docs/DEPLOY_LOG.md`.
+
+## Audit history
+
+| Date | Type | By | Summary |
+|---|---|---|---|
+| 2026-10-04 | First full audit (read-only, anon-key probes) | Claude Code for Chella | 18 findings plus N1. C1 and H1 confirmed live, then fixed the same day with 003 and 005. C2 checked and not an issue |
+| 2026-10-07 | Status update | Claude Code for Chella | H4 fixed (code under git); H3 partly fixed (new repo cleaned) |
+
+---
+
 ## 1. Summary
 
 **The customer database is open to the internet.** Anyone with the public anon key — which is inside the JavaScript every visitor downloads — can read every customer's name, both phone numbers, PAR status and home GPS location, without logging in. This was verified on the live project.
@@ -84,7 +108,14 @@ This was **not** tested live, because testing it means writing to production. Ch
 - Apply 003 so new accounts start as `pending`.
 - Optionally restrict Google sign-in to the company domain.
 
-### H3 — Real customer data in the GitHub repo history · High · Open
+### H3 — Real customer data in the GitHub repo history · High · Open (partly fixed)
+
+**Update 2026-10-07:**
+- **`kchella/Portfolio_Map`:** clean on `main` (amend + force-push by Chella). The orphaned commit `2c3a591` can still be fetched by SHA until GitHub garbage-collects it. Deleting and recreating the repo removes it.
+- **`ECS-IT-Fintech/ECS_Maps_Zambia`:** the files are untracked from PR #1 on, but still in older history.
+- **Both repos** now ignore `scripts/*.csv` and `scripts/customers_output.ts`.
+
+*Original finding:*
 
 From the handover (3.1): `scripts/Customers PAR Status.csv` and `scripts/customers_output.ts` are committed in `ECS-IT-Fintech/ECS_Maps_Zambia`. Both files are still in the local `scripts/` folder, and `.gitignore` doesn't exclude them.
 
@@ -93,7 +124,11 @@ From the handover (3.1): `scripts/Customers PAR Status.csv` and `scripts/custome
 - Decide whether to rewrite the history (force-push, run by a person) or accept the risk because the repo is private, and limit repo access.
 - Delete the local copies once they are no longer needed.
 
-### H4 — No version control or backup of the working code · High · Open
+### H4 — No version control or backup of the working code · High · **Fixed 2026-10-07**
+
+**Fixed:** the code is in git. PR #1 was merged into `ECS-IT-Fintech/ECS_Maps_Zambia` (`1fe9158`); the working repo is `kchella/Portfolio_Map` (DEC-005). Production still deploys from the personal repo until the Vercel switch.
+
+*Original finding:*
 
 From the handover (section 2): the local copy has no `.git`, and GitHub is about four months behind. A lost or broken laptop means all recent work, including the security fixes, is lost.
 
