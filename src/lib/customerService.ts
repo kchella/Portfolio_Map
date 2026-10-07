@@ -18,7 +18,7 @@ function toLegacyRow(row: Record<string, unknown>): Record<string, unknown> {
 
 export async function syncCustomers(rows: Record<string, unknown>[]) {
   // Work out the schema before deleting anything — a failed insert after the
-  // delete would leave the map with no customers.
+  // delete would leave the map with no customers (PM-001).
   const modern = await hasSupaPartnerColumns()
   if (!modern) rows = rows.map(toLegacyRow)
 

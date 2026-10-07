@@ -1,4 +1,12 @@
-# PAR Map — Build Checklist
+# History
+
+A record of how PAR Map was built and of rules that no longer apply. **Not
+current rules**: for those, see `AGENTS.md` and `CONTRIBUTING.md`.
+
+## Build checklist (phases 1–9, carried over from `CHECKLIST.md`)
+
+Kept as written, so the history reads as it happened. Notes in *italics*
+mark items that are no longer true.
 
 ## Phase 1 — Foundation
 - [x] Next.js app initialized with TypeScript
@@ -97,3 +105,49 @@
 - [ ] `.env.local` populated with real Supabase URL and keys
 - [ ] Login redirect loop resolved (middleware cookie name verified)
 - [ ] Deployed to Vercel with env vars set
+
+*Notes on phases 1–9:*
+- *Phase 1: `src/data/customers.ts` and `csv_to_ts.py` were replaced by the
+  Supabase `customers` table and the admin import (removed 2026-05-11).
+  "GitHub repo created and pushed" referred to the org repo, which then fell
+  about four months behind.*
+- *Phase 9: the middleware no longer reads the cookie directly; it calls
+  `getUser()` through `@supabase/ssr`. The callback no longer upserts
+  profiles; a database trigger creates them as `pending`. The open items
+  were resolved: `.env.local` is populated, and the app is on Vercel.*
+
+## Phase 10 — Supa Partner, routes, redesign, lock-down (2026-09-30 to 2026-10-07)
+
+- [x] Dev server warnings fixed: `next.config.mjs`, `outputFileTracingRoot` (PM-005)
+- [x] "Lead Generator" renamed to "Supa Partner" in UI, CSV and database (migration 004)
+- [x] Supa Partner GPS columns; straight-line distance in the popup (DEC-002)
+- [x] Road routes: walk / bike / drive via OSRM, route card, Google Maps hand-off (DEC-003)
+- [x] Customer popup redesigned as a contact sheet: PAR Status row, Call / WhatsApp, copy ref (DEC-006)
+- [x] Admin: Customer Data tiles, search, filter chips, 200-row table; Boundary Layers grouped by team with a dropdown
+- [x] Admin sidebar uses the SupaMoto logo
+- [x] Weekly import no longer empties the table on a schema mismatch (PM-001)
+- [x] First security audit (`docs/security/SECURITY-AUDIT.md`)
+- [x] Customer data and storage locked down: migrations 003 and 005 (PM-002, audit C1 / H1)
+- [x] Code under git: PR #1 merged in `ECS-IT-Fintech/ECS_Maps_Zambia`; working repo `kchella/Portfolio_Map` (DEC-005)
+- [x] Customer exports and `.env*` removed from tracking and ignored
+- [x] Docs restructured: `AGENTS.md`, `CONTRIBUTING.md`, `docs/` (this file, bug and deploy logs, decisions, requirements, training)
+- [ ] Merge the five personal-repo commits (May 19 – June 5) and switch Vercel to `Portfolio_Map`
+- [ ] Turn on Confirm email (audit H2)
+- [ ] Atomic, audited customer import (audit M4)
+- [ ] Working password reset (audit M5)
+
+## Retired rules (from the original `RULES.md`)
+
+These were the rules before 2026-10. Each line says what replaced it.
+
+- "Weekly PAR data lives in `src/data/customers.ts`, regenerated with
+  `csv_to_ts.py`." Replaced by the `customers` table and Admin → Customer
+  Data.
+- "Next.js 14." Now Next.js 15.
+- "Admin access via `/admin` with a password gate (`ADMIN_PASSWORD`)."
+  Replaced by Supabase Auth roles. `ADMIN_PASSWORD` is unused (audit L4).
+- "Public access: no login required." Now every map user needs an approved
+  account (DEC-001).
+- "Storage bucket `kmz-files` must be Public." Now private (migrations 003
+  and 005).
+- "One link, zero logins." Superseded by the security requirement above.
