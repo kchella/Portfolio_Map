@@ -34,6 +34,7 @@ export const A = {
   canvas: '#101010',
   card: '#1a1a1a',
   field: 'rgba(44,44,44,0.30)',  // SupaTicket dark:bg-input/30
+  fieldFilled: '#1c1c1c',        // phone view: filled input on the bare canvas
   border: '#2c2c2c',
   text: '#fafafa',
   secondary: '#d4d4d4',

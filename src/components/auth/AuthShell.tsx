@@ -51,21 +51,50 @@ const css = `
   .au-divider::before, .au-divider::after { content: ''; flex: 1; height: 1px; background: ${A.border}; }
   .au-spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(17,24,39,0.25); border-top-color: ${A.onAccent}; animation: spin .7s linear infinite; }
   .au-spin.light { border-color: rgba(255,255,255,0.2); border-top-color: ${A.text}; }
-  /* Phones: drop the card frame so the form uses the full width, and tighten
-     the spacing. Inputs go to 16px so iOS Safari doesn't zoom in on focus;
-     controls stay 44px tall (field rule: tap targets at least 40px). */
+  /* Phones: an app-style screen rather than a card. Same layout and order as
+     desktop; the frame is dropped, fields become filled rounded inputs, the
+     footer sits at the bottom edge, and padding respects the notch and home
+     bar. Field-ready minimums hold: text 11px+, controls 40px+. Typed text
+     stays 16px: below that, iOS Safari zooms the page on focus. */
   @media (max-width: 480px) {
-    .au-main { align-items: flex-start; padding: 32px 20px 24px; }
-    .au-card { background: transparent; border: 0; border-radius: 0; padding: 0; max-width: 400px; margin: 0 auto; }
-    .au-head { margin-bottom: 20px; }
-    .au-logo { height: 40px; margin-bottom: 12px; }
-    .au-title { font-size: 20px; }
+    html body { -webkit-tap-highlight-color: transparent; }
+    .au-main {
+      min-height: 100vh; min-height: 100dvh; align-items: stretch;
+      padding: max(28px, env(safe-area-inset-top)) 20px max(16px, env(safe-area-inset-bottom));
+    }
+    .au-card {
+      display: flex; flex-direction: column; background: transparent; border: 0; border-radius: 0;
+      padding: 0; max-width: 400px; margin: 0 auto;
+    }
+    .au-head { margin: 12px 0 24px; }
+    .au-logo { height: 32px; margin-bottom: 14px; }
+    .au-title { font-size: 22px; letter-spacing: -0.01em; }
     .au-sub { font-size: 13px; margin-top: 4px; }
-    .au-field { margin-bottom: 12px; }
-    .au-label { margin-bottom: 6px; }
+    .au-field { margin-bottom: 14px; }
+    .au-label { font-size: 12px; font-weight: 500; margin-bottom: 6px; }
+    .au-group { height: 44px; border-radius: 12px; border-color: transparent; background: ${A.fieldFilled}; }
+    .au-group:focus-within { border-color: ${A.accent}; box-shadow: 0 0 0 3px ${A.ring}; }
+    .au-group[data-invalid="true"] { border-color: ${A.danger}; }
+    .au-icon { padding-left: 14px; }
+    .au-eye { width: 44px; }
     .au-input { font-size: 16px; }
-    .au-divider { margin: 16px 0; }
-    .au-foot { margin-top: 16px; }
+    .au-primary, .au-secondary { height: 46px; border-radius: 12px; font-size: 14px; transition: background .15s, transform .1s; }
+    .au-secondary { border-color: ${A.border}; }
+    .au-primary:active:not(:disabled), .au-secondary:active:not(:disabled) { transform: scale(0.98); }
+    .au-link { font-size: 13px; }
+    .au-divider { margin: 18px 0; font-size: 12px; }
+    .au-foot { margin-top: auto; padding-top: 20px; font-size: 13px; }
+  }
+  /* Very small phones (320-360px wide, or short screens). */
+  @media (max-width: 360px), (max-height: 620px) and (max-width: 480px) {
+    .au-main { padding-top: max(16px, env(safe-area-inset-top)); padding-left: 16px; padding-right: 16px; }
+    .au-head { margin: 4px 0 16px; }
+    .au-logo { height: 28px; margin-bottom: 10px; }
+    .au-title { font-size: 19px; }
+    .au-field { margin-bottom: 10px; }
+    .au-group { height: 42px; }
+    .au-primary, .au-secondary { height: 44px; }
+    .au-divider { margin: 12px 0; }
   }
 `
 
