@@ -86,7 +86,7 @@ export default function AuthCallback() {
           border: `2.5px solid ${A.border}`, borderTopColor: A.accent,
           animation: 'spin 0.7s linear infinite',
         }} />
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } } body { margin: 0; background: ${A.canvas}; }`}</style>
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } } html, html body { margin: 0; background: ${A.canvas}; }`}</style>
         <span style={{ fontSize: 14, color: A.muted }}>Signing you in…</span>
       </div>
     </div>
