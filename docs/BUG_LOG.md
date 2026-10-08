@@ -113,7 +113,10 @@ verified, and how to prevent it.
 - **Fix:** the sign-in styles use `html body` (heavier than `body`), and
   the `<main>` wrapper paints the canvas itself, so the result no longer
   depends on load order.
-- **Verified:** production build of the branch (see PR).
+- **Verified:** live on ecs-maps-zambia.vercel.app after PR #4 (`62c60ea`):
+  the page HTML carries the `html body` rule and the dark `<main>`; Chella
+  confirmed the page is dark after a hard refresh. Older deploy URLs (for
+  example `…-p6vjxkfdw-…`) still show the white page; that's expected.
 - **Prevent:** a page-level style that overrides `globals.css` must use a
   heavier selector or style its own wrapper; check new screens on a
   production build or Vercel preview, not only the dev server.

@@ -16,15 +16,17 @@ production change for all of them.
 | 2026-09-30 | DB: `004_supa_partner.sql` (rename to `supa_partner_*`, add partner GPS) | file in repo | SQL Editor | Chella |
 | 2026-10-04 | DB: `003_lock_down_data.sql` (pending-by-default, approved-only reads, private bucket) | file in repo | SQL Editor | Chella |
 | 2026-10-04 | DB: `005_remove_open_reads.sql` (drop leftover `using (true)` reads and storage policies) — anon re-check clean | file in repo | SQL Editor | Chella |
+| 2026-10-07 | Frontend: Supa Partner routes, redesigned popup and admin, data lock-down (pushed to the personal repo; already live before the switch below) | `da92689` | Vercel (`rkchellah/ECS_Maps_Zambia`) | Chella |
+| 2026-10-08 | Vercel project `ecs-maps-zambia` switched to `kchella/Portfolio_Map` (DEC-005). First two builds **failed**: Root Directory was still `par-map`; cleared, then redeployed | — | Vercel settings | Chella |
+| 2026-10-08 | Frontend: PR #2 remove "in arrears" share, PR #3 SupaMoto sign-in screens and working password reset (audit M5) | `6c03dc5` | Vercel (`Portfolio_Map`) | Chella |
+| 2026-10-08 | Frontend: PR #4 keep sign-in canvas dark in production (PM-006). Checked live by Chella | `62c60ea` | Vercel (`Portfolio_Map`) | Chella |
 
 ## Not yet deployed
 
-- **Frontend changes since June** (Supa Partner rename, routes, popup and
-  admin redesign, safer import). They're merged in
-  `ECS-IT-Fintech/ECS_Maps_Zambia` (`1fe9158`) and pushed to
-  `kchella/Portfolio_Map`, but not to the repo Vercel deploys from. The
-  five personal-repo commits above must be merged in first.
 - **Auth setting:** Confirm email (audit H2).
+- **Auth setting:** `/reset-password` in Supabase Redirect URLs (production
+  and localhost). Until it's added, reset emails don't land on the new page
+  (`docs/specs/auth-screens.md`).
 
 *Entries before 2026-09-30 are reconstructed from Vercel's deployment list
 (screenshot shared by Chella on 2026-10-07); migrations 001 and 002 have no
