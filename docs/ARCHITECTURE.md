@@ -22,7 +22,8 @@ PAR Map is a Next.js 15 (Pages Router) app for SupaMoto Zambia field teams. It s
 | `/admin` | Admin | `pages/admin.tsx` | Customers, layers, buffers, users |
 | `/login` | Public | `pages/login.tsx` | Email + Google sign-in |
 | `/register` | Public | `pages/register.tsx` | Self-registration; account starts `pending` |
-| `/forgot-password` | Public | `pages/forgot-password.tsx` | **Placeholder:** shows success without sending (audit M5) |
+| `/forgot-password` | Public | `pages/forgot-password.tsx` | Sends the Supabase reset email (link → `/reset-password`) |
+| `/reset-password` | Reset link | `pages/reset-password.tsx` | Exchanges the reset code, sets a new password, back to `/login` |
 | `/auth/callback` | Internal | `pages/auth/callback.tsx` | OAuth / email-confirm landing, role check |
 | `/404` | Public | `pages/404.tsx` | Redirects home |
 
