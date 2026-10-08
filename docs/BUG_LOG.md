@@ -96,3 +96,24 @@ verified, and how to prevent it.
   `outputFileTracingRoot` to the project folder.
 - **Verified:** dev server starts with no warnings (ready in 3.2 s instead
   of 11.3 s).
+
+## PM-006 — Sign-in screens showed a white page around the dark card in production
+
+- **Date:** 2026-10-08
+- **Where:** `src/components/auth/AuthShell.tsx` (page styles),
+  `src/pages/auth/callback.tsx`; `src/styles/globals.css`
+- **What broke:** after PR #3 deployed, `/login` on
+  ecs-maps-zambia.vercel.app showed the dark card on a white page. The
+  local dev server showed it on the dark canvas as designed.
+- **Root cause:** `globals.css` sets `body { background: #ffffff }` for
+  the whole app, and the sign-in screens set `body { background: #101010 }`
+  in a `<style>` tag. Both selectors have the same weight, so the one
+  loaded last wins. In development the page's tag came last; in the
+  production build the global stylesheet did.
+- **Fix:** the sign-in styles use `html body` (heavier than `body`), and
+  the `<main>` wrapper paints the canvas itself, so the result no longer
+  depends on load order.
+- **Verified:** production build of the branch (see PR).
+- **Prevent:** a page-level style that overrides `globals.css` must use a
+  heavier selector or style its own wrapper; check new screens on a
+  production build or Vercel preview, not only the dev server.

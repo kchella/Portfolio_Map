@@ -10,7 +10,10 @@ import { IconEye, IconEyeOff } from '../icons'
 const css = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
-  body { font-family: ${A.family}; background: ${A.canvas}; color: ${A.text}; -webkit-font-smoothing: antialiased; color-scheme: dark; }
+  /* html body, not body: globals.css also sets body { background: #fff }, and in
+     production its stylesheet can load after this tag, so equal weight loses (PM-006). */
+  html, html body { background: ${A.canvas}; }
+  html body { font-family: ${A.family}; color: ${A.text}; -webkit-font-smoothing: antialiased; color-scheme: dark; }
   input, select, button { font-family: inherit; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .au-card { width: 100%; max-width: 448px; background: ${A.card}; border: 1px solid ${A.border}; border-radius: 12px; padding: 32px; }
@@ -58,7 +61,7 @@ export function AuthShell({ pageTitle, title, subtitle, children, footer }: {
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
         <style>{css}</style>
       </Head>
-      <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+      <main style={{ minHeight: '100vh', background: A.canvas, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
         <div className="au-card">
           <header style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: 24 }}>
             {/* eslint-disable-next-line @next/next/no-img-element -- small static SVG */}
