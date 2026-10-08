@@ -96,7 +96,7 @@ export default function RegisterPage() {
         <Field label="Email" icon={<IconMail size={16} />} type="email" autoComplete="email" placeholder="you@supamoto.global"
           value={email} onChange={e => setEmail(e.target.value)} />
 
-        <div style={{ marginBottom: 16 }}>
+        <div className="au-field">
           <label className="au-label" htmlFor={roleId}>Role</label>
           <div className="au-group" style={{ position: 'relative' }}>
             <span className="au-icon" aria-hidden><IconUsers size={16} /></span>
