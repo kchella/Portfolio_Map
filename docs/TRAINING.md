@@ -12,8 +12,13 @@ For SupaMoto field staff and admins. No technical knowledge needed.
    (Chella) to approve you.
 4. Once approved, sign in and the map opens.
 
-Forgot your password? The reset page doesn't send emails yet. Ask an admin
-to reset it for you.
+Forgot your password? Tap **Forgot password?** on the sign-in screen and
+enter your email. Open the link in the email **on the same phone and
+browser**, then choose a new password. If the link says it can't be used,
+request a new one.
+
+You only sign in once per phone. The map stays signed in until you tap
+sign out.
 
 ## Reading the map
 

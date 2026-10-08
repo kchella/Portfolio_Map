@@ -172,7 +172,11 @@ The Google Maps and WhatsApp hand-offs are user-initiated and usually acceptable
 
 **Fix:** move the sync into a database function (load a staging table, swap in one transaction), admin-only, and write an audit row (who, when, row count).
 
-### M5 — "Forgot password" doesn't send anything · Medium · Open
+### M5 — "Forgot password" doesn't send anything · Medium · Open (fix written, not deployed)
+
+**Update 2026-10-08:** fix on branch `feat/auth-screens`. `forgot-password.tsx` calls `resetPasswordForEmail` with `redirectTo: /reset-password`, and the new `reset-password.tsx` exchanges the PKCE code and calls `updateUser({ password })`. The success message is the same for registered and unknown addresses. Before it works in production, `/reset-password` must be added to Supabase's Redirect URLs. Tick when deployed and a real reset has been tested.
+
+*Original finding:*
 
 `forgot-password.tsx` shows "We've sent reset instructions" without calling Supabase, and there's no page to set a new password.
 

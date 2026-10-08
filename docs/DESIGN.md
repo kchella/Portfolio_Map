@@ -67,6 +67,14 @@ A neutral, near-monochrome set: `ink` `#111111`, `mid` `#555555`, `muted`
 black. Orange appears only as the active-nav marker and the GPS coverage
 bar. Errors use `#c0392b` on a 6% tint.
 
+### Sign-in screens (`A` in `theme.ts`)
+
+Dark, matching the SupaTicket sign-in: `#101010` page, `#1a1a1a` card,
+`#2c2c2c` hairlines, tangerine `#fb9f38` primary with dark text, Poppins.
+Used only by `/login`, `/register`, `/forgot-password`, `/reset-password`
+and `/auth/callback`, through `components/auth/AuthShell.tsx`. See
+`docs/specs/auth-screens.md`.
+
 ## Typography
 
 - **Inter** for everything (`F.family`), at weights 400, 500 and 600. Avoid

@@ -20,8 +20,10 @@ Users: **field staff** (`user` role) on phones outdoors on weak data, and
   needs `admin`.
 - **Done when:** a pending account gets 0 rows from every PAR Map table
   with its own token, and an approved viewer gets data but can't write.
-- **Open:** forgot-password sends nothing (audit M5); email confirmation is
-  off (audit H2).
+- Anyone can reset their own password: `/forgot-password` emails a link
+  that opens `/reset-password` (built 2026-10-08, not yet deployed; see
+  `docs/specs/auth-screens.md`).
+- **Open:** email confirmation is off (audit H2).
 
 ## R2 — Portfolio map · Done
 

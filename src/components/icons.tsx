@@ -260,6 +260,15 @@ export function IconLock({ size = defaults.size, color = defaults.color, ...p }:
   )
 }
 
+export function IconMail({ size = defaults.size, color = defaults.color, ...p }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...p}>
+      <rect x="3" y="5" width="18" height="14" rx="2" stroke={color} strokeWidth="1.8" strokeLinejoin="round"/>
+      <path d="M3.5 6.5L12 13L20.5 6.5" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  )
+}
+
 export function IconRefresh({ size = defaults.size, color = defaults.color, ...p }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...p}>

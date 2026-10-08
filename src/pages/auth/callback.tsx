@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { supabase } from '../../lib/supabase'
 import { safeNext, hasMapAccess } from '../../lib/safeNext'
+import { A } from '../../styles/theme'
 
 export default function AuthCallback() {
   const router = useRouter()
@@ -76,17 +77,17 @@ export default function AuthCallback() {
   return (
     <div style={{
       minHeight: '100vh', display: 'flex', alignItems: 'center',
-      justifyContent: 'center', fontFamily: 'Inter, system-ui, sans-serif',
-      background: '#ffffff',
+      justifyContent: 'center', fontFamily: A.family,
+      background: A.canvas,
     }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
         <div style={{
           width: 20, height: 20, borderRadius: '50%',
-          border: '2.5px solid #e4e4e7', borderTopColor: '#18181b',
+          border: `2.5px solid ${A.border}`, borderTopColor: A.accent,
           animation: 'spin 0.7s linear infinite',
         }} />
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-        <span style={{ fontSize: 14, color: '#71717a' }}>Signing you in…</span>
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } } body { margin: 0; background: ${A.canvas}; }`}</style>
+        <span style={{ fontSize: 14, color: A.muted }}>Signing you in…</span>
       </div>
     </div>
   )
