@@ -16,8 +16,14 @@ const css = `
   html body { font-family: ${A.family}; color: ${A.text}; -webkit-font-smoothing: antialiased; color-scheme: dark; }
   input, select, button { font-family: inherit; }
   @keyframes spin { to { transform: rotate(360deg); } }
+  .au-main { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px; }
   .au-card { width: 100%; max-width: 448px; background: ${A.card}; border: 1px solid ${A.border}; border-radius: 12px; padding: 32px; }
-  @media (max-width: 420px) { .au-card { padding: 24px 20px; } }
+  .au-head { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 24px; }
+  .au-logo { height: 56px; width: auto; margin-bottom: 16px; }
+  .au-title { font-size: 24px; font-weight: 600; color: ${A.text}; line-height: 1.3; }
+  .au-sub { font-size: 14px; color: ${A.muted}; margin-top: 6px; line-height: 1.5; }
+  .au-field { margin-bottom: 16px; }
+  .au-foot { margin-top: 24px; font-size: 12px; color: ${A.muted}; text-align: center; line-height: 1.6; }
   .au-label { display: block; font-size: 12px; color: ${A.secondary}; margin-bottom: 8px; }
   .au-group { display: flex; align-items: center; height: 44px; border: 1px solid ${A.border}; border-radius: 8px; background: ${A.field}; transition: border-color .15s, box-shadow .15s; }
   .au-group:focus-within { border-color: ${A.accent}; box-shadow: 0 0 0 3px ${A.ring}; }
@@ -25,6 +31,9 @@ const css = `
   .au-icon { display: flex; padding: 0 4px 0 12px; color: ${A.muted}; }
   .au-input { flex: 1; min-width: 0; height: 100%; background: transparent; border: 0; outline: none; color: ${A.text}; font-size: 14px; padding: 0 12px 0 8px; }
   .au-input::placeholder { color: ${A.muted}; opacity: 1; }
+  /* Chrome paints autofilled fields light blue; keep the dark field and light text. */
+  .au-input:-webkit-autofill, .au-input:-webkit-autofill:hover, .au-input:-webkit-autofill:focus {
+    -webkit-text-fill-color: ${A.text}; caret-color: ${A.text}; transition: background-color 600000s 0s; }
   select.au-input { appearance: none; cursor: pointer; }
   select.au-input option { background: ${A.card}; color: ${A.text}; }
   .au-eye { display: flex; align-items: center; justify-content: center; width: 44px; height: 100%; background: none; border: 0; color: ${A.muted}; cursor: pointer; }
@@ -38,10 +47,26 @@ const css = `
   .au-link { color: ${A.accent}; font-weight: 500; text-decoration: none; }
   .au-link:hover { text-decoration: underline; }
   .au-tap { display: inline-flex; align-items: center; min-height: 40px; }
-  .au-divider { display: flex; align-items: center; gap: 12px; font-size: 12px; color: ${A.muted}; }
+  .au-divider { display: flex; align-items: center; gap: 12px; font-size: 12px; color: ${A.muted}; margin: 20px 0; }
   .au-divider::before, .au-divider::after { content: ''; flex: 1; height: 1px; background: ${A.border}; }
   .au-spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(17,24,39,0.25); border-top-color: ${A.onAccent}; animation: spin .7s linear infinite; }
   .au-spin.light { border-color: rgba(255,255,255,0.2); border-top-color: ${A.text}; }
+  /* Phones: drop the card frame so the form uses the full width, and tighten
+     the spacing. Inputs go to 16px so iOS Safari doesn't zoom in on focus;
+     controls stay 44px tall (field rule: tap targets at least 40px). */
+  @media (max-width: 480px) {
+    .au-main { align-items: flex-start; padding: 32px 20px 24px; }
+    .au-card { background: transparent; border: 0; border-radius: 0; padding: 0; max-width: 400px; margin: 0 auto; }
+    .au-head { margin-bottom: 20px; }
+    .au-logo { height: 40px; margin-bottom: 12px; }
+    .au-title { font-size: 20px; }
+    .au-sub { font-size: 13px; margin-top: 4px; }
+    .au-field { margin-bottom: 12px; }
+    .au-label { margin-bottom: 6px; }
+    .au-input { font-size: 16px; }
+    .au-divider { margin: 16px 0; }
+    .au-foot { margin-top: 16px; }
+  }
 `
 
 export function AuthShell({ pageTitle, title, subtitle, children, footer }: {
@@ -61,17 +86,17 @@ export function AuthShell({ pageTitle, title, subtitle, children, footer }: {
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
         <style>{css}</style>
       </Head>
-      <main style={{ minHeight: '100vh', background: A.canvas, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+      <main className="au-main" style={{ background: A.canvas }}>
         <div className="au-card">
-          <header style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: 24 }}>
+          <header className="au-head">
             {/* eslint-disable-next-line @next/next/no-img-element -- small static SVG */}
-            <img src="/supamoto-logo.svg" alt="SupaMoto" style={{ height: 56, width: 'auto', marginBottom: 16 }} />
-            <h1 style={{ fontSize: 24, fontWeight: 600, color: A.text, lineHeight: 1.3 }}>{title}</h1>
-            {subtitle && <p style={{ fontSize: 14, color: A.muted, marginTop: 6, lineHeight: 1.5 }}>{subtitle}</p>}
+            <img src="/supamoto-logo.svg" alt="SupaMoto" className="au-logo" />
+            <h1 className="au-title">{title}</h1>
+            {subtitle && <p className="au-sub">{subtitle}</p>}
           </header>
           {children}
           {footer && (
-            <p style={{ marginTop: 24, fontSize: 12, color: A.muted, textAlign: 'center', lineHeight: 1.6 }}>{footer}</p>
+            <p className="au-foot">{footer}</p>
           )}
         </div>
       </main>
@@ -84,7 +109,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement>
 export function Field({ label, icon, invalid, ...input }: InputProps & { label: string; icon: ReactNode; invalid?: boolean }) {
   const id = useId()
   return (
-    <div style={{ marginBottom: 16 }}>
+    <div className="au-field">
       <label className="au-label" htmlFor={id}>{label}</label>
       <div className="au-group" data-invalid={invalid || undefined}>
         <span className="au-icon" aria-hidden>{icon}</span>
@@ -100,7 +125,7 @@ export function PasswordField({ label, icon, invalid, children, ...input }: Inpu
   const id = useId()
   const [show, setShow] = useState(false)
   return (
-    <div style={{ marginBottom: 16 }}>
+    <div className="au-field">
       <label className="au-label" htmlFor={id}>{label}</label>
       <div className="au-group" data-invalid={invalid || undefined}>
         <span className="au-icon" aria-hidden>{icon}</span>
@@ -154,7 +179,7 @@ export function GoogleButton({ busy, onClick }: { busy: boolean; onClick: () => 
 }
 
 export function Divider({ label }: { label: string }) {
-  return <div className="au-divider" style={{ margin: '20px 0' }}>{label}</div>
+  return <div className="au-divider">{label}</div>
 }
 
 export function PwdStrength({ pwd }: { pwd: string }) {
