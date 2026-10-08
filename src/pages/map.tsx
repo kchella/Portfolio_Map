@@ -256,8 +256,6 @@ export default function MapPage() {
           .pf-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;}
           .t-lbl{font-size:12px;color:${T.muted};margin-bottom:2px;}
           .t-val{font-size:20px;font-weight:600;letter-spacing:-0.02em;line-height:1.2;color:${T.onSurface};}
-          .t-risk{font-size:12px;color:${T.muted};text-align:right;line-height:1.4;}
-          .t-risk b{font-weight:500;color:${T.onSurface};}
           .stack{display:flex;gap:2px;height:8px;margin:12px 0 10px;border-radius:4px;overflow:hidden;background:${T.low};}
           .stack span{height:100%;min-width:3px;transition:flex-grow .5s cubic-bezier(.4,0,.2,1),opacity .15s;}
           .ladder{display:flex;flex-direction:column;margin:0 -6px;}
@@ -459,7 +457,6 @@ export default function MapPage() {
             // Search-scoped totals; each row doubles as the status filter.
             const total = searchedCustomers.length
             const pctOf = (n: number) => { const v = total ? (n / total) * 100 : 0; return v > 0 && v < 1 ? '<1%' : `${Math.round(v)}%` }
-            const inArrears = total - filterCounts['ONTIME']
             return (
               <div className="pf num" style={{ animation: 'sIn .18s ease both' }}>
                 <div className="pf-head">
@@ -467,7 +464,6 @@ export default function MapPage() {
                     <div className="t-lbl">Customers</div>
                     <div className="t-val">{total.toLocaleString()}</div>
                   </div>
-                  {total > 0 && <div className="t-risk"><b>{pctOf(inArrears)}</b> in arrears</div>}
                 </div>
 
                 <div className="stack" role="img" aria-label={PAR_ORDER.map(k => `${PAR_LABEL[k]} ${filterCounts[k]}`).join(', ')}>
